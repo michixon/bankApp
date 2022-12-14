@@ -1,6 +1,8 @@
 package com.example.bankapp
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.Response
@@ -30,9 +32,13 @@ class BlikActivity : AppCompatActivity() {
             Request.Method.GET,
             url,
             {
-                response -> binding.randomBlikCode.setText()
+                response ->
+                    var strResponse = response.toString()
+                    binding.randomBlikCode.setText(strResponse)
             },
-            {  }
+            {
+                Response.ErrorListener { Log.e("API", "Error") }
+            }
         )
         queue.add(stringReq)
 
@@ -43,3 +49,4 @@ class BlikActivity : AppCompatActivity() {
         }
     }
 }
+
