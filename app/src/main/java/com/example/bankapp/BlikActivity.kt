@@ -1,21 +1,19 @@
 package com.example.bankapp
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.Response
-import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.bankapp.databinding.ActivityBlikBinding
-import org.json.JSONObject
 import java.util.*
-import kotlin.random.Random
-
 
 class BlikActivity : AppCompatActivity() {
+    var counter = 120
     lateinit var binding: ActivityBlikBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,30 +21,46 @@ class BlikActivity : AppCompatActivity() {
 
         binding = ActivityBlikBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        binding.newCodeBlikGenerate.setOnClickListener(){
+            //val intent = Intent(this, BlikActivity::class.java)
+            //startActivity(intent)
 
         val queue = Volley.newRequestQueue(this)
-        val url: String = "http://192.168.1.136:8080/blik/createCode"
+        val url: String = "http://192.168.1.111:8080/blik/createCode"
 
         val stringReq = StringRequest(
             Request.Method.GET,
             url,
             {
                 response ->
-                    var strResponse = response.toString()
-                    binding.randomBlikCode.setText(strResponse)
+                    val strResponse = response.toString()
+                binding.BlikCode.text = strResponse
             },
             {
-                Response.ErrorListener { Log.e("API", "Error") }
+                response ->
+                    Log.e("APIII", response.toString())
             }
         )
         queue.add(stringReq)
 
-        binding.blik.setOnClickListener(){
-//            var randomCode = Random.nextInt(100000, 1000000)
-//            binding.randomBlikCode.setText(randomCode.toString())
+        object : CountDownTimer(120000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                binding.CodeExp.setText("Kod wygasa za")
+                binding.TimerTextView.text= (counter.toString()+"s")
+                counter--
+                binding.newCodeBlikGenerate.isEnabled = false
+            }
+
+            override fun onFinish() {
+                binding.TimerTextView.setText("Kod wygasł")
+                binding.newCodeBlikGenerate.isEnabled = true
+               counter= 120
+
+            }
+        }.start()
 
         }
+
     }
 }
 

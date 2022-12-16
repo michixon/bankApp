@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">bankApp</string>
+    <string name="welcome">Witamy w aplikacji bankowej </string>
+<!--    <string name="blik_code_txt"> Tu kod blik</string>-->
 </resources>
