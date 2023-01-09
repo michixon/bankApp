@@ -33,11 +33,13 @@ class BlikActivity : AppCompatActivity() {
             url,
             {
                 response ->
+
                     val strResponse = response.toString()
                 binding.BlikCode.text = strResponse
             },
             {
                 response ->
+                    binding.BlikCode.text = "Błąd połączenia z serwerem"
                     Log.e("APIII", response.toString())
             }
         )
