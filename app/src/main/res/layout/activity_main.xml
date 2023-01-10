@@ -9,26 +9,29 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 <TextView
-    android:id="@+id/chooseNum"
+    android:id="@+id/welcomeTextView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
     android:text="Witamy w aplikacji bankowej "
     android:textColor="@color/vdark_blue"
-    android:textSize="20dp"
+    android:textSize="20sp"
     android:layout_marginTop="20dp"
     android:textStyle="bold" />
 
-<Button
+
+    <Button
 android:id="@+id/goBlikGenerator"
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
 android:backgroundTint="@color/light_blue"
-android:text="blik" />
+android:text="@string/blik" />
 
-<TextView
-android:id="@+id/randomBlikCode"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:text="" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/goAccount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/light_blue"
+        android:text="@string/account_balance"
+    />
+</LinearLayout>

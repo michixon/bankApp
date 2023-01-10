@@ -13,9 +13,12 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         binding.goBlikGenerator.setOnClickListener(){
             val intent = Intent(this, BlikActivity::class.java)
+            startActivity(intent)
+        }
+        binding.goAccount.setOnClickListener(){
+            val intent = Intent(this, AccountBalanceActivity::class.java)
             startActivity(intent)
         }
     }
