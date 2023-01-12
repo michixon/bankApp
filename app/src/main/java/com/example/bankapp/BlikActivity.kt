@@ -26,7 +26,7 @@ class BlikActivity : AppCompatActivity() {
             //startActivity(intent)
 
         val queue = Volley.newRequestQueue(this)
-        val url: String = "http://192.168.1.111:8080/blik/createCode"
+        val url: String = "http://192.168.1.108:8080/blik/createCode"
 
         val stringReq = StringRequest(
             Request.Method.GET,
