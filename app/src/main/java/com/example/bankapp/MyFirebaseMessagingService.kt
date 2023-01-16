@@ -1,5 +1,6 @@
 package com.example.bankapp
 
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -9,6 +10,7 @@ import android.os.Build
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
+import com.google.firebase.messaging.RemoteMessage
 
 const val channelId = "notification_channel"
 const val channelName = "com.example.bankapp"
@@ -17,6 +19,14 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     //attach notification with layout
     //show notification
 
+    override fun onMessageReceived(remoteMessage: RemoteMessage) {
+        if (remoteMessage.getNotification() != null)
+        {
+            generateNotification(remoteMessage.notification!!.title!!, remoteMessage.notification!!.body!!)
+        }
+    }
+
+    @SuppressLint("RemoteViewLayout")
     fun getRemoteView(title: String, message: String): RemoteViews {
        val remoteView = RemoteViews("com.example.bankapp", R.layout.notification_layout)
         remoteView.setTextViewText(R.id.title, title)
