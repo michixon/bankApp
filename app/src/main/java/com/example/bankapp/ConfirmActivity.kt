@@ -15,8 +15,9 @@ class ConfirmActivity : AppCompatActivity() {
         setContentView(R.layout.activity_confirm)
 
         val blikCode = (this.application as GlobalVariables).getActualBlik()
+//        binding.priceTxt.text = blikCode
         val queue = Volley.newRequestQueue(this)
-        val url: String = "http://192.168.0.203:8080/blik/$blikCode"
+        val url: String = "http://192.168.0.203:8080/blik/price/$blikCode"
 
         val stringReq = StringRequest(
             Request.Method.GET,
@@ -33,5 +34,6 @@ class ConfirmActivity : AppCompatActivity() {
                 Log.e("APIII", response.toString())
             }
         )
+        queue.add(stringReq)
     }
 }
