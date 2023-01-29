@@ -1,15 +1,15 @@
 package com.example.bankapp
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
-import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.bankapp.databinding.ActivityBlikBinding
+import com.google.android.gms.tasks.Task
+import com.google.firebase.messaging.FirebaseMessaging
 import java.util.*
 
 class BlikActivity : AppCompatActivity() {
@@ -19,6 +19,16 @@ class BlikActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_blik)
 
+        var pushToken :String = ""
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task: Task<String> ->
+            if (!task.isSuccessful) {
+                return@addOnCompleteListener
+            }
+
+            pushToken = task.result
+            Log.i("PUSH_TOKEN", "pushToken: $pushToken")
+        }
+
         binding = ActivityBlikBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.newCodeBlikGenerate.setOnClickListener(){
@@ -26,7 +36,7 @@ class BlikActivity : AppCompatActivity() {
             //startActivity(intent)
 
         val queue = Volley.newRequestQueue(this)
-        val url: String = "http://192.168.1.108:8080/blik/createCode"
+            val url: String = "http://192.168.0.203:8080/blik/createCode/$pushToken"
 
         val stringReq = StringRequest(
             Request.Method.GET,
@@ -35,7 +45,8 @@ class BlikActivity : AppCompatActivity() {
                 response ->
 
                     val strResponse = response.toString()
-                binding.BlikCode.text = strResponse
+                (this.application as GlobalVariables).setActualBlik(strResponse)
+                binding.BlikCode.text = (this.application as GlobalVariables).getActualBlik()
             },
             {
                 response ->

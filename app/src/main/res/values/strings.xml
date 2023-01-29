@@ -4,5 +4,6 @@
     <string name="_730_51_z">730.51 zł</string>
     <string name="blik">blik</string>
     <string name="account_balance">Account balance</string>
+    <string name="confirm">confirm</string>
     <!--    <string name="blik_code_txt"> Tu kod blik</string>-->
 </resources>
